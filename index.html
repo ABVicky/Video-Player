@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Responsive Video Player</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <div class="video-player">
+      <video id="mainVideo" controls>
+        <source id="videoSource" src="">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+
+    <div class="upload-section">
+      <label for="uploadInput">Upload Videos</label>
+      <input type="file" id="uploadInput" accept=".mp4,.mkv,.webm,.ogg,.avi,.mov,.flv,.wmv" multiple>
+    </div>
+
+    <ul class="video-list" id="videoList">
+      <!-- Uploaded video files will appear here -->
+    </ul>
+  </div>
+
+  <script src="scripts.js"></script>
+</body>
+</html>
