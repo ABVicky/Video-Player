@@ -1,47 +1,37 @@
 const uploadInput = document.getElementById('uploadInput');
-    const videoList = document.getElementById('videoList');
-    const mainVideo = document.getElementById('mainVideo');
-    const videoSource = document.getElementById('videoSource');
+const videoList = document.getElementById('videoList');
+const mainVideo = document.getElementById('mainVideo');
 
-    // Load videos from local storage on page load
-    window.addEventListener('load', () => {
-      const savedVideos = JSON.parse(localStorage.getItem('videos')) || [];
+// Array to store recently played videos
+const recentlyPlayed = [];
 
-      savedVideos.forEach(video => {
-        addVideoToList(video.name, video.url);
-      });
-    });
+uploadInput.addEventListener('change', (event) => {
+  const file = event.target.files[0];
+  if (file) {
+    const videoURL = URL.createObjectURL(file);
 
-    uploadInput.addEventListener('change', (event) => {
-      const files = Array.from(event.target.files);
+    // Play the selected video
+    mainVideo.src = videoURL;
+    mainVideo.play();
 
-      files.forEach(file => {
-        const videoURL = URL.createObjectURL(file);
+    // Add to the list of recently played videos
+    addVideoToList(file.name, videoURL);
+  }
+});
 
-        // Save video info to local storage
-        const savedVideos = JSON.parse(localStorage.getItem('videos')) || [];
-        savedVideos.push({ name: file.name, url: videoURL });
-        localStorage.setItem('videos', JSON.stringify(savedVideos));
+function addVideoToList(name, url) {
+  // Prevent duplicate entries
+  if (recentlyPlayed.find(video => video.name === name)) return;
 
-        // Add the video to the list
-        addVideoToList(file.name, videoURL);
-      });
+  const listItem = document.createElement('li');
+  listItem.textContent = name;
+  listItem.dataset.videoUrl = url;
 
-      // Reset the input
-      uploadInput.value = '';
-    });
+  listItem.addEventListener('click', () => {
+    mainVideo.src = listItem.dataset.videoUrl;
+    mainVideo.play();
+  });
 
-    function addVideoToList(name, url) {
-      const listItem = document.createElement('li');
-      listItem.textContent = name;
-      listItem.dataset.videoUrl = url;
-
-      // Play video on click
-      listItem.addEventListener('click', () => {
-        videoSource.src = listItem.dataset.videoUrl;
-        mainVideo.load();
-        mainVideo.play();
-      });
-
-      videoList.appendChild(listItem);
-    }
+  videoList.appendChild(listItem);
+  recentlyPlayed.push({ name, url });
+}
