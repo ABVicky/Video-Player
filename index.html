@@ -8,20 +8,20 @@
 </head>
 <body>
   <div class="container">
+    <h1>Enhanced Video Player</h1>
     <div class="video-player">
       <video id="mainVideo" controls>
-        <source id="videoSource" src="">
         Your browser does not support the video tag.
       </video>
     </div>
 
     <div class="upload-section">
-      <label for="uploadInput">Upload Videos</label>
-      <input type="file" id="uploadInput" accept=".mp4,.mkv,.webm,.ogg,.avi,.mov,.flv,.wmv" multiple>
+      <label for="uploadInput">Choose a Video from Your Drive:</label>
+      <input type="file" id="uploadInput" accept="video/*">
     </div>
 
     <ul class="video-list" id="videoList">
-      <!-- Uploaded video files will appear here -->
+      <!-- Recently played videos will appear here -->
     </ul>
   </div>
 
